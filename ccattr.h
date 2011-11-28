@@ -28,13 +28,17 @@
 #	if __has_attribute(pure)
 #		define _CCATTR_HAVE_PURE
 #	endif
+#	if __has_attribute(malloc)
+#		define _CCATTR_HAVE_MALLOC
+#	endif
 #else /* !__has_attribute -- gcc */
-#	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ > 4)
+#	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)
 #		define _CCATTR_HAVE_CONST
 #		define _CCATTR_HAVE_NORETURN
 #	endif
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
 #		define _CCATTR_HAVE_PURE
+#		define _CCATTR_HAVE_MALLOC
 #	endif
 #endif /* __has_attribute */
 
@@ -64,6 +68,19 @@
 #	define CCATTR_PURE __attribute__((pure))
 #else
 #	define CCATTR_PURE
+#endif
+
+/**
+ * CCATTR_MALLOC
+ *
+ * Declare a function as `malloc'. This means that the function always returns
+ * a pointer to memory which is guaranteed not to alias (IOW, a newly-allocated
+ * memory) or %NULL.
+ */
+#ifdef _CCATTR_HAVE_MALLOC
+#	define CCATTR_MALLOC __attribute__((malloc))
+#else
+#	define CCATTR_MALLOC
 #endif
 
 /**
