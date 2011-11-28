@@ -1,3 +1,4 @@
 <SECTION>
 <FILE>ccattr</FILE>
+CCATTR_CONST
 </SECTION>
