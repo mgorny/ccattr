@@ -28,6 +28,12 @@
 #	if __has_attribute(returns_twice)
 #		define _CCATTR_HAVE_RETURNS_TWICE
 #	endif
+#	if __has_attribute(unused)
+#		define _CCATTR_HAVE_UNUSED
+#	endif
+#	if __has_attribute(used)
+#		define _CCATTR_HAVE_USED
+#	endif
 #	if __has_attribute(pure)
 #		define _CCATTR_HAVE_PURE
 #	endif
@@ -39,6 +45,8 @@
 #		define _CCATTR_HAVE_CONST
 #		define _CCATTR_HAVE_NORETURN
 #		define _CCATTR_HAVE_RETURNS_TWICE /* XXX: check version */
+#		define _CCATTR_HAVE_UNUSED
+#		define _CCATTR_HAVE_USED
 #	endif
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
 #		define _CCATTR_HAVE_PURE
@@ -109,6 +117,30 @@
 #	define CCATTR_RETURNS_TWICE __attribute__((returns_twice))
 #else
 #	define CCATTR_RETURNS_TWICE
+#endif
+
+/**
+ * CCATTR_UNUSED
+ *
+ * Declare a function as `unused'. This means that the function may not be used
+ * at all and compiler should not warn about it.
+ */
+#ifdef _CCATTR_HAVE_UNUSED
+#	define CCATTR_UNUSED __attribute__((unused))
+#else
+#	define CCATTR_UNUSED
+#endif
+
+/**
+ * CCATTR_USED
+ *
+ * Declare a function as `used'. This means that the function code must be
+ * generated even if it appears to be unused.
+ */
+#ifdef _CCATTR_HAVE_USED
+#	define CCATTR_USED __attribute__((used))
+#else
+#	define CCATTR_USED
 #endif
 
 #endif /*_CCATTR_H*/
