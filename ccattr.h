@@ -43,6 +43,9 @@
 #	if __has_attribute(warn_unused_result)
 #		define _CCATTR_HAVE_WARN_UNUSED_RESULT
 #	endif
+#	if __has_attribute(sentinel)
+#		define _CCATTR_HAVE_SENTINEL
+#	endif
 #else /* !__has_attribute -- gcc */
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)
 #		define _CCATTR_HAVE_CONST
@@ -57,6 +60,9 @@
 #	endif
 #	if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
 #		define _CCATTR_HAVE_WARN_UNUSED_RESULT
+#	endif
+#	if __GNUC__ >= 4
+#		define _CCATTR_HAVE_SENTINEL
 #	endif
 #endif /* __has_attribute */
 
@@ -159,6 +165,18 @@
 #	define CCATTR_USED __attribute__((used))
 #else
 #	define CCATTR_USED
+#endif
+
+/**
+ * CCATTR_SENTINEL
+ *
+ * Declare a variadic function as `sentinel'. This means that the variadic
+ * argument list must be terminated with an explicit %NULL.
+ */
+#ifdef _CCATTR_HAVE_SENTINEL
+#	define CCATTR_SENTINEL __attribute__((sentinel))
+#else
+#	define CCATTR_SENTINEL
 #endif
 
 #endif /*_CCATTR_H*/
