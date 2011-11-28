@@ -220,4 +220,34 @@
 #	define CCATTR_SCANF(fstr_idx, args_idx)
 #endif
 
+/**
+ * CCATTR_STRFTIME
+ * @fstr_idx: index of format string argument
+ *
+ * Declare a variadic function taking arguments similar to strftime().
+ * The format string is passed to the function as @fstr_idx-th argument.
+ */
+#ifdef _CCATTR_HAVE_FORMAT
+#	define CCATTR_STRFTIME(fstr_idx) \
+		__attribute__((format(strftime, fstr_idx, 0)))
+#else
+#	define CCATTR_STRFTIME(fstr_idx)
+#endif
+
+/**
+ * CCATTR_STRFMON
+ * @fstr_idx: index of format string argument
+ * @args_idx: index of first variadic argument
+ *
+ * Declare a variadic function taking arguments similar to strfmon().
+ * The format string is passed to the function as @fstr_idx-th argument,
+ * and the variadic arguments start at @args_idx.
+ */
+#ifdef _CCATTR_HAVE_FORMAT
+#	define CCATTR_STRFMON(fstr_idx, args_idx) \
+		__attribute__((format(strfmon, fstr_idx, args_idx)))
+#else
+#	define CCATTR_STRFMON(fstr_idx, args_idx)
+#endif
+
 #endif /*_CCATTR_H*/
