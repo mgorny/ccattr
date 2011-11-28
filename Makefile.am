@@ -3,4 +3,11 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
 
 SUBDIRS = doc
 
+TESTS_ENVIRONMENT = $(top_srcdir)/tests/run-test $(CC) $(CFLAGS) -Wall
+
+XFAIL_TESTS = tests/malloc.c tests/warn-unused-result.c tests/noreturn.c \
+	tests/sentinel.c
+
+TESTS = $(XFAIL_TESTS)
+
 include_HEADERS = ccattr.h
