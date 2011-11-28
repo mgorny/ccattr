@@ -41,6 +41,9 @@
 #	if __has_attribute(format_arg)
 #		define _CCATTR_HAVE_FORMAT_ARG
 #	endif
+#	if __has_attribute(alloc_size)
+#		define _CCATTR_HAVE_ALLOC_SIZE
+#	endif
 #else /* !__has_attribute -- gcc */
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)
 #		define _CCATTR_HAVE_CONST
@@ -60,6 +63,9 @@
 #	endif
 #	if __GNUC__ >= 4
 #		define _CCATTR_HAVE_SENTINEL
+#	endif
+#	if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)
+#		define _CCATTR_HAVE_ALLOC_SIZE
 #	endif
 #endif /* __has_attribute */
 
@@ -270,6 +276,35 @@
 		__attribute__((format_arg(fstr_idx)))
 #else
 #	define CCATTR_FORMAT_ARG(fstr_idx)
+#endif
+
+/**
+ * CCATTR_ALLOC_SIZE
+ * @size_idx: index of size argument
+ *
+ * Declare a function returning memory block of size passed as an argument
+ * at index @size_idx.
+ */
+#ifdef _CCATTR_HAVE_ALLOC_SIZE
+#	define CCATTR_ALLOC_SIZE(size_idx) \
+		__attribute__((alloc_size(size_idx)))
+#else
+#	define CCATTR_ALLOC_SIZE(size_idx)
+#endif
+
+/**
+ * CCATTR_ALLOC_SIZE2
+ * @nmemb_idx: index of nmemb argument
+ * @size_idx: index of size argument
+ *
+ * Declare a function returning memory block of size being the product
+ * of arguments passed at indexes @nmemb_idx and @size_idx (like with calloc()).
+ */
+#ifdef _CCATTR_HAVE_ALLOC_SIZE
+#	define CCATTR_ALLOC_SIZE2(nmemb_idx, size_idx) \
+		__attribute__((alloc_size(nmemb_idx, size_idx)))
+#else
+#	define CCATTR_ALLOC_SIZE2(nmemb_idx, size_idx)
 #endif
 
 #endif /*_CCATTR_H*/
