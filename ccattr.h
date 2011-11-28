@@ -35,6 +35,9 @@
 #	if __has_attribute(sentinel)
 #		define _CCATTR_HAVE_SENTINEL
 #	endif
+#	if __has_attribute(format)
+#		define _CCATTR_HAVE_FORMAT
+#	endif
 #else /* !__has_attribute -- gcc */
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)
 #		define _CCATTR_HAVE_CONST
@@ -42,6 +45,7 @@
 #		define _CCATTR_HAVE_RETURNS_TWICE /* XXX: check version */
 #		define _CCATTR_HAVE_UNUSED
 #		define _CCATTR_HAVE_USED
+#		define _CCATTR_HAVE_FORMAT
 #	endif
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
 #		define _CCATTR_HAVE_PURE
@@ -182,6 +186,38 @@
 #	define CCATTR_SENTINEL __attribute__((sentinel))
 #else
 #	define CCATTR_SENTINEL
+#endif
+
+/**
+ * CCATTR_PRINTF
+ * @fstr_idx: index of format string argument
+ * @args_idx: index of first variadic argument
+ *
+ * Declare a variadic function taking arguments similar to printf().
+ * The format string is passed to the function as @fstr_idx-th argument,
+ * and the variadic arguments start at @args_idx.
+ */
+#ifdef _CCATTR_HAVE_FORMAT
+#	define CCATTR_PRINTF(fstr_idx, args_idx) \
+		__attribute__((format(printf, fstr_idx, args_idx)))
+#else
+#	define CCATTR_PRINTF(fstr_idx, args_idx)
+#endif
+
+/**
+ * CCATTR_SCANF
+ * @fstr_idx: index of format string argument
+ * @args_idx: index of first variadic argument
+ *
+ * Declare a variadic function taking arguments similar to scanf().
+ * The format string is passed to the function as @fstr_idx-th argument,
+ * and the variadic arguments start at @args_idx.
+ */
+#ifdef _CCATTR_HAVE_FORMAT
+#	define CCATTR_SCANF(fstr_idx, args_idx) \
+		__attribute__((format(scanf, fstr_idx, args_idx)))
+#else
+#	define CCATTR_SCANF(fstr_idx, args_idx)
 #endif
 
 #endif /*_CCATTR_H*/
