@@ -1,0 +1,14 @@
+.dirstamp
+/aclocal.m4
+/autom4te.cache/
+/build-aux/
+/config.cache
+/config.log
+/config.status
+/configure
+/doc/
+/gtk-doc.make
+/m4/
+/stamp-h1
+Makefile
+Makefile.in
