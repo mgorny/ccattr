@@ -25,6 +25,9 @@
 #	if __has_attribute(noreturn)
 #		define _CCATTR_HAVE_NORETURN
 #	endif
+#	if __has_attribute(returns_twice)
+#		define _CCATTR_HAVE_RETURNS_TWICE
+#	endif
 #	if __has_attribute(pure)
 #		define _CCATTR_HAVE_PURE
 #	endif
@@ -35,6 +38,7 @@
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)
 #		define _CCATTR_HAVE_CONST
 #		define _CCATTR_HAVE_NORETURN
+#		define _CCATTR_HAVE_RETURNS_TWICE /* XXX: check version */
 #	endif
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
 #		define _CCATTR_HAVE_PURE
@@ -93,6 +97,18 @@
 #	define CCATTR_NORETURN __attribute__((noreturn))
 #else
 #	define CCATTR_NORETURN
+#endif
+
+/**
+ * CCATTR_RETURNS_TWICE
+ *
+ * Declare a function as `returns_twice'. This means that the function may
+ * return more than once, e.g. setjmp(), fork().
+ */
+#ifdef _CCATTR_HAVE_RETURNS_TWICE
+#	define CCATTR_RETURNS_TWICE __attribute__((returns_twice))
+#else
+#	define CCATTR_RETURNS_TWICE
 #endif
 
 #endif /*_CCATTR_H*/
