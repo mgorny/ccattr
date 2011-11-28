@@ -38,6 +38,9 @@
 #	if __has_attribute(format)
 #		define _CCATTR_HAVE_FORMAT
 #	endif
+#	if __has_attribute(format_arg)
+#		define _CCATTR_HAVE_FORMAT_ARG
+#	endif
 #else /* !__has_attribute -- gcc */
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)
 #		define _CCATTR_HAVE_CONST
@@ -46,6 +49,7 @@
 #		define _CCATTR_HAVE_UNUSED
 #		define _CCATTR_HAVE_USED
 #		define _CCATTR_HAVE_FORMAT
+#		define _CCATTR_HAVE_FORMAT_ARG
 #	endif
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
 #		define _CCATTR_HAVE_PURE
@@ -248,6 +252,24 @@
 		__attribute__((format(strfmon, fstr_idx, args_idx)))
 #else
 #	define CCATTR_STRFMON(fstr_idx, args_idx)
+#endif
+
+/**
+ * CCATTR_FORMAT_ARG
+ * @fstr_idx: index of format string argument
+ *
+ * Declare a variadic function possibly taking a format string argument
+ * and returning a modified variant of it. Thus, the checks on format string
+ * will be performed on arguments of the function to which result will
+ * be passed.
+ *
+ * Used on gettext(), for example.
+ */
+#ifdef _CCATTR_HAVE_FORMAT_ARG
+#	define CCATTR_FORMAT_ARG(fstr_idx) \
+		__attribute__((format_arg(fstr_idx)))
+#else
+#	define CCATTR_FORMAT_ARG(fstr_idx)
 #endif
 
 #endif /*_CCATTR_H*/
