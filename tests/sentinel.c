@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include "../ccattr.h"
+#include "ccattr.h"
 
 #ifndef _CCATTR_HAVE_SENTINEL
 #	warning "SKIPTEST"

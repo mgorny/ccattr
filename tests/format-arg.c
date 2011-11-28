@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "../ccattr.h"
+#include "ccattr.h"
 
 #ifndef _CCATTR_HAVE_FORMAT
 #	warning "SKIPTEST"

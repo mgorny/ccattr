@@ -1,4 +1,4 @@
-#include "../ccattr.h"
+#include "ccattr.h"
 
 #ifndef _CCATTR_HAVE_MALLOC
 #	warning "SKIPTEST"

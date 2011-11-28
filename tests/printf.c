@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "../ccattr.h"
+#include "ccattr.h"
 
 #ifndef _CCATTR_HAVE_FORMAT
 #	warning "SKIPTEST"

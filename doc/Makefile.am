@@ -3,10 +3,10 @@ DOC_MODULE_VERSION = $(PACKAGE_VERSION)
 
 DOC_MAIN_SGML_FILE = $(DOC_MODULE)-docs.sgml
 
-DOC_SOURCE_DIR = $(top_srcdir)/
+DOC_SOURCE_DIR = $(top_srcdir)/src/
 
 # Used for dependencies. The docs will be rebuilt if any of these change.
-HFILE_GLOB = $(top_srcdir)/*.h
+HFILE_GLOB = $(top_srcdir)/src/*.h
 CFILE_GLOB =
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.
