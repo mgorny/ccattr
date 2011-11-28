@@ -12,7 +12,8 @@
 	<chapter>
 		<title>The reference</title>
 
-		<xi:include href="xml/ccattr.xml"/>
+		<xi:include href="xml/function-results.xml"/>
+		<xi:include href="xml/function-params.xml"/>
 	</chapter>
 	<index id="api-index-full">
 		<title>API Index</title>

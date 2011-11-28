@@ -7,17 +7,6 @@
 #ifndef _CCATTR_H
 #define _CCATTR_H
 
-/**
- * SECTION: ccattr
- * @short_description: macros to use CC attributes portably
- * @include: ccattr.h
- *
- * ccattr is a simple header file which directly checks for various extended CC
- * attributes and exports them via macros in a portable manner.
- *
- * Right now, ccattr supports GCC & clang compilers.
- */
-
 #ifdef __has_attribute /* clang */
 #	if __has_attribute(constant) /* XXX: we can't use const... */
 #		define _CCATTR_HAVE_CONST
@@ -65,6 +54,14 @@
 #		define _CCATTR_HAVE_SENTINEL
 #	endif
 #endif /* __has_attribute */
+
+/**
+ * SECTION: function-results
+ * @short_description: macros to declare function result types
+ * @include: ccattr.h
+ *
+ * Macros which declare specific function results and effects.
+ */
 
 /**
  * CCATTR_CONST
@@ -166,6 +163,14 @@
 #else
 #	define CCATTR_USED
 #endif
+
+/**
+ * SECTION: function-params
+ * @short_description: macros to declare function parameter types
+ * @include: ccattr.h
+ *
+ * Macros which declare functions as taking specific parameters.
+ */
 
 /**
  * CCATTR_SENTINEL
