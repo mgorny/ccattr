@@ -40,6 +40,9 @@
 #	if __has_attribute(malloc)
 #		define _CCATTR_HAVE_MALLOC
 #	endif
+#	if __has_attribute(warn_unused_result)
+#		define _CCATTR_HAVE_WARN_UNUSED_RESULT
+#	endif
 #else /* !__has_attribute -- gcc */
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)
 #		define _CCATTR_HAVE_CONST
@@ -51,6 +54,9 @@
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 96)
 #		define _CCATTR_HAVE_PURE
 #		define _CCATTR_HAVE_MALLOC
+#	endif
+#	if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
+#		define _CCATTR_HAVE_WARN_UNUSED_RESULT
 #	endif
 #endif /* __has_attribute */
 
@@ -93,6 +99,18 @@
 #	define CCATTR_MALLOC __attribute__((malloc))
 #else
 #	define CCATTR_MALLOC
+#endif
+
+/**
+ * CCATTR_WARN_UNUSED_RESULT
+ *
+ * Declare a function as `warn_unused_result'. This means that the compiler will
+ * warn whenever the function result is not used.
+ */
+#ifdef _CCATTR_HAVE_WARN_UNUSED_RESULT
+#	define CCATTR_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
+#else
+#	define CCATTR_WARN_UNUSED_RESULT
 #endif
 
 /**
