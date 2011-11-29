@@ -32,6 +32,9 @@
 #	if __has_attribute(warn_unused_result)
 #		define _CCATTR_HAVE_WARN_UNUSED_RESULT
 #	endif
+#	if __has_attribute(nonnull)
+#		define _CCATTR_HAVE_NONNULL
+#	endif
 #	if __has_attribute(sentinel)
 #		define _CCATTR_HAVE_SENTINEL
 #	endif
@@ -66,6 +69,9 @@
 #	endif
 #	if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
 #		define _CCATTR_HAVE_DEPRECATED
+#	endif
+#	if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 3)
+#		define _CCATTR_HAVE_NONNULL
 #	endif
 #	if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
 #		define _CCATTR_HAVE_WARN_UNUSED_RESULT
@@ -173,6 +179,20 @@
  *
  * Macros which declare functions as taking specific parameters.
  */
+
+/**
+ * CCATTR_NONNULL
+ * @indexes: list of argument indexes, in parentheses
+ *
+ * Declare arguments of function which must not be passed NULL. The indexes
+ * of those arguments shall be passed as an argument to this macro
+ * in an additional parentheses, e.g. CCATTR_NONNULL((1,2)).
+ */
+#ifdef _CCATTR_HAVE_NONNULL
+#	define CCATTR_NONNULL(indexes) __attribute__((nonnull indexes))
+#else
+#	define CCATTR_NONNULL(indexes)
+#endif
 
 /**
  * CCATTR_SENTINEL

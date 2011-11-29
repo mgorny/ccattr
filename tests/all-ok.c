@@ -11,7 +11,7 @@ static const char *foo(const char *fstr) CCATTR_FORMAT_ARG(1) CCATTR_MALLOC;
 static void fooexit(void) CCATTR_NORETURN;
 static void foomp(void) CCATTR_RETURNS_TWICE;
 static const char *foosprintf(int bufx, int bufy, const char *fstr, ...)
-		CCATTR_PRINTF(3, 4) CCATTR_ALLOC_SIZE2(1,2);
+		CCATTR_PRINTF(3, 4) CCATTR_ALLOC_SIZE2(1,2) CCATTR_NONNULL((3));
 static int foolist(const char *a, ...) CCATTR_SENTINEL CCATTR_WARN_UNUSED_RESULT;
 
 static int sum(int a, int b) CCATTR_CONST CCATTR_UNUSED CCATTR_DEPRECATED;
