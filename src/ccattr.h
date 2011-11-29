@@ -167,30 +167,6 @@
 #endif
 
 /**
- * CCATTR_UNUSED
- *
- * Declare a function as `unused'. This means that the function may not be used
- * at all and compiler should not warn about it.
- */
-#ifdef _CCATTR_HAVE_UNUSED
-#	define CCATTR_UNUSED __attribute__((unused))
-#else
-#	define CCATTR_UNUSED
-#endif
-
-/**
- * CCATTR_USED
- *
- * Declare a function as `used'. This means that the function code must be
- * generated even if it appears to be unused.
- */
-#ifdef _CCATTR_HAVE_USED
-#	define CCATTR_USED __attribute__((used))
-#else
-#	define CCATTR_USED
-#endif
-
-/**
  * SECTION: function-params
  * @short_description: macros to declare function parameter types
  * @include: ccattr.h
@@ -326,6 +302,30 @@
  *
  * Macros not fitting any of the remaining groups.
  */
+
+/**
+ * CCATTR_UNUSED
+ *
+ * Declare a function, type or variable as `unused'. This means that it
+ * may not be used at all and compiler should not warn about it.
+ */
+#ifdef _CCATTR_HAVE_UNUSED
+#	define CCATTR_UNUSED __attribute__((unused))
+#else
+#	define CCATTR_UNUSED
+#endif
+
+/**
+ * CCATTR_USED
+ *
+ * Declare a function or variable as `used'. This means that the function code
+ * or variable must be generated even if it appears to be unused.
+ */
+#ifdef _CCATTR_HAVE_USED
+#	define CCATTR_USED __attribute__((used))
+#else
+#	define CCATTR_USED
+#endif
 
 /**
  * CCATTR_DEPRECATED
