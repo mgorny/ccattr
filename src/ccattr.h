@@ -330,8 +330,8 @@
 /**
  * CCATTR_DEPRECATED
  *
- * Declare a function as `deprecated'. The compiler will warn whenever such
- * a function is used.
+ * Declare a function, variable or type as `deprecated'. The compiler will warn
+ * whenever such a symbol is used.
  */
 #ifdef _CCATTR_HAVE_DEPRECATED
 #	define CCATTR_DEPRECATED __attribute__((deprecated))
@@ -343,9 +343,9 @@
  * CCATTR_DEPRECATED_WITH_MESSAGE
  * @msg: additional deprecation message
  *
- * Declare a function as `deprecated'. The compiler will warn whenever such
- * a function is used. @msg specifies additional message which will be printed
- * for that function (e.g. the reason of deprecation).
+ * Declare a function, variable or type as `deprecated'. The compiler will warn
+ * whenever such a symbol is used. @msg specifies additional message which
+ * will be printed for that function (e.g. the reason of deprecation).
  *
  * If a compiler doesn't support deprecations with specific messages, this macro
  * will fallback to CCATTR_DEPRECATED.
@@ -355,5 +355,19 @@
 #else
 #	define CCATTR_DEPRECATED_WITH_MESSAGE(msg) CCATTR_DEPRECATED
 #endif
+
+/**
+ * CCATTR_DEPRECATED_FOR
+ * @replacement: replacement function/variable/type name
+ *
+ * Declare a function, variable or type as `deprecated'. The compiler will warn
+ * whenever such a symbol is used. The warning will include a polite suggestion
+ * to use @replacement instead.
+ *
+ * If a compiler doesn't support deprecations with specific messages, this macro
+ * will fallback to CCATTR_DEPRECATED.
+ */
+#define CCATTR_DEPRECATED_FOR(replacement) \
+	CCATTR_DEPRECATED_WITH_MESSAGE("Please use " replacement " instead.")
 
 #endif /*_CCATTR_H*/

@@ -14,6 +14,7 @@ TESTS = $(top_srcdir)/tests/malloc.c \
 	$(top_srcdir)/tests/format-arg.c \
 	$(top_srcdir)/tests/deprecated.c \
 	$(top_srcdir)/tests/deprecated-with-message.c \
+	$(top_srcdir)/tests/deprecated-for.c \
 	$(top_srcdir)/tests/all-ok.c
 XFAIL_TESTS = $(top_srcdir)/tests/all-ok.c
 
