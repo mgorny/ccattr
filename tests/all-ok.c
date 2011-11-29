@@ -14,8 +14,8 @@ static const char *foosprintf(int bufx, int bufy, const char *fstr, ...)
 		CCATTR_PRINTF(3, 4) CCATTR_ALLOC_SIZE2(1,2);
 static int foolist(const char *a, ...) CCATTR_SENTINEL CCATTR_WARN_UNUSED_RESULT;
 
-static int sum(int a, int b) CCATTR_CONST CCATTR_UNUSED;
-static int sumgl(int a) CCATTR_PURE CCATTR_USED;
+static int sum(int a, int b) CCATTR_CONST CCATTR_UNUSED CCATTR_DEPRECATED;
+static int sumgl(int a) CCATTR_PURE CCATTR_USED CCATTR_DEPRECATED_WITH_MESSAGE("testz");
 
 static const char *foo(const char *fstr) {
 	return strdup(fstr);

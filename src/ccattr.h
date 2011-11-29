@@ -44,6 +44,12 @@
 #	if __has_attribute(alloc_size)
 #		define _CCATTR_HAVE_ALLOC_SIZE
 #	endif
+#	if __has_attribute(deprecated)
+#		define _CCATTR_HAVE_DEPRECATED
+#		if defined(__has_feature) && __has_feature(attribute_deprecated_with_message)
+#			define _CCATTR_HAVE_DEPRECATED_WITH_MESSAGE
+#		endif
+#	endif
 #else /* !__has_attribute -- gcc */
 #	if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)
 #		define _CCATTR_HAVE_CONST
@@ -58,6 +64,9 @@
 #		define _CCATTR_HAVE_PURE
 #		define _CCATTR_HAVE_MALLOC
 #	endif
+#	if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
+#		define _CCATTR_HAVE_DEPRECATED
+#	endif
 #	if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
 #		define _CCATTR_HAVE_WARN_UNUSED_RESULT
 #	endif
@@ -66,6 +75,9 @@
 #	endif
 #	if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)
 #		define _CCATTR_HAVE_ALLOC_SIZE
+#	endif
+#	if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)
+#		define _CCATTR_HAVE_DEPRECATED_WITH_MESSAGE
 #	endif
 #endif /* __has_attribute */
 
@@ -305,6 +317,43 @@
 		__attribute__((alloc_size(nmemb_idx, size_idx)))
 #else
 #	define CCATTR_ALLOC_SIZE2(nmemb_idx, size_idx)
+#endif
+
+/**
+ * SECTION: other
+ * @short_description: other macros
+ * @include: ccattr.h
+ *
+ * Macros not fitting any of the remaining groups.
+ */
+
+/**
+ * CCATTR_DEPRECATED
+ *
+ * Declare a function as `deprecated'. The compiler will warn whenever such
+ * a function is used.
+ */
+#ifdef _CCATTR_HAVE_DEPRECATED
+#	define CCATTR_DEPRECATED __attribute__((deprecated))
+#else
+#	define CCATTR_DEPRECATED
+#endif
+
+/**
+ * CCATTR_DEPRECATED_WITH_MESSAGE
+ * @msg: additional deprecation message
+ *
+ * Declare a function as `deprecated'. The compiler will warn whenever such
+ * a function is used. @msg specifies additional message which will be printed
+ * for that function (e.g. the reason of deprecation).
+ *
+ * If a compiler doesn't support deprecations with specific messages, this macro
+ * will fallback to CCATTR_DEPRECATED.
+ */
+#ifdef _CCATTR_HAVE_DEPRECATED_WITH_MESSAGE
+#	define CCATTR_DEPRECATED_WITH_MESSAGE(msg) __attribute__((deprecated(msg)))
+#else
+#	define CCATTR_DEPRECATED_WITH_MESSAGE(msg) CCATTR_DEPRECATED
 #endif
 
 #endif /*_CCATTR_H*/

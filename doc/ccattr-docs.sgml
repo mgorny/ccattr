@@ -14,6 +14,7 @@
 
 		<xi:include href="xml/function-results.xml"/>
 		<xi:include href="xml/function-params.xml"/>
+		<xi:include href="xml/other.xml"/>
 	</chapter>
 	<index id="api-index-full">
 		<title>API Index</title>
